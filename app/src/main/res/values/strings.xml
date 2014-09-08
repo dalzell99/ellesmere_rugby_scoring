@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Club Rugby Live Scoring</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="home_team_textview">Home Team</string>
+    <string name="away_team_textview">Away Team</string>
+    <string name="create_game_button">Create Game</string>
+    <string name="select_game_button">Select Game</string>
+    <string name="upload_instructions">Enter the score for both teams as well as minutes played then click Send</string>
+    <string name="send_button">Send</string>
+    <string name="divison_textview">Division</string>
+    <string name="minutes_played_textview">Minutes Played</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="time_textview">Start Time</string>
+    <string name="location_textview">Location</string>
+    <string name="date_textview">Date</string>
+    <string name="change_textview">Change</string>
+    <string name="set_textview">Set</string>
+    <string name="title_activity_create_game">CreateGameActivity</string>
+    <string name="title_activity_game_info">GameInfoActivity</string>
+    <string name="title_activity_score_game_fragment">ScoreGameFragmentActivity</string>
+    <string name="title_activity_score_game_pager_adaptor">ScoreGamePagerAdaptor</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
