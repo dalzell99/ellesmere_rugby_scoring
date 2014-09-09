@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:padding="5dp">
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:padding="5dp">
 
     <TableRow
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewHomeTeam"
-            android:textSize="20sp"
+            android:textSize="13sp"
             android:gravity="center"/>
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewAwayTeam"
-            android:textSize="20sp"
+            android:textSize="13sp"
             android:gravity="center"/>
 
     </TableRow>
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewHomeScore"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:gravity="center"/>
 
         <TextView
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewAwayScore"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:gravity="center"/>
 
     </TableRow>
@@ -54,17 +54,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Try"
-            android:id="@+id/buttonHomeTry"/>
+            android:id="@+id/buttonHomeTry"
+            android:textSize="13sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Try"
-            android:id="@+id/buttonAwayTry"/>
+            android:id="@+id/buttonAwayTry"
+            android:textSize="13sp"/>
     </TableRow>
 
     <TableRow
@@ -73,17 +75,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Conversion"
-            android:id="@+id/buttonHomeConversion"/>
+            android:id="@+id/buttonHomeConversion"
+            android:textSize="13sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Conversion"
-            android:id="@+id/buttonAwayConversion"/>
+            android:id="@+id/buttonAwayConversion"
+            android:textSize="13sp"/>
     </TableRow>
 
     <TableRow
@@ -92,17 +96,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Penalty"
-            android:id="@+id/buttonHomePenalty"/>
+            android:id="@+id/buttonHomePenalty"
+            android:textSize="13sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Penalty"
-            android:id="@+id/buttonAwayPenalty"/>
+            android:id="@+id/buttonAwayPenalty"
+            android:textSize="13sp"/>
     </TableRow>
 
     <TableRow
@@ -111,17 +117,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Drop Goal"
-            android:id="@+id/buttonHomeDropGoal"/>
+            android:id="@+id/buttonHomeDropGoal"
+            android:textSize="13sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Drop Goal"
-            android:id="@+id/buttonAwayDropGoal"/>
+            android:id="@+id/buttonAwayDropGoal"
+            android:textSize="13sp"/>
     </TableRow>
 
     <TableRow
@@ -130,17 +138,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Half Time"
-            android:id="@+id/buttonHalfTime"/>
+            android:id="@+id/buttonHalfTime"
+            android:textSize="13sp"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_weight="1"
             android:text="Full Time"
-            android:id="@+id/buttonFullTime"/>
+            android:id="@+id/buttonFullTime"
+            android:textSize="13sp"/>
     </TableRow>
 
     <TableRow
@@ -152,14 +162,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewMinutesPlayed"
             android:text="@string/minutes_played_textview"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
         <EditText
             android:id="@+id/editTextMinutesPlayed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="15sp"/>
 
     </TableRow>
 
@@ -172,7 +183,7 @@
             android:layout_height="wrap_content"
             android:text="Description"
             android:id="@+id/textViewDescription"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
     </TableRow>
 
     <TableRow
@@ -185,7 +196,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textMultiLine"
-            android:id="@+id/editTextDescription"/>
+            android:id="@+id/editTextDescription"
+            android:textSize="15sp"/>
     </TableRow>
 
     <TableRow
@@ -196,9 +208,9 @@
             android:text="@string/send_button"
             android:id="@+id/sendButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
-            android:textSize="@dimen/spinner_text_size"/>
+            android:textSize="15sp"/>
     </TableRow>
 
 </TableLayout>

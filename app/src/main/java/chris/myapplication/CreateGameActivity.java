@@ -88,12 +88,12 @@ public class CreateGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_game);
 
-        // Make the activity full screen by removing actionbar
-        final ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+//        // Make the activity full screen by removing actionbar
+//        final ActionBar actionBar = getActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayShowHomeEnabled(false);
+//            actionBar.setDisplayShowTitleEnabled(false);
+//        }
 
         // Store reference to activity context
         mContext = this;

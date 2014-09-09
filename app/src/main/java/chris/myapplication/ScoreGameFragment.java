@@ -162,52 +162,56 @@ public class ScoreGameFragment extends Fragment {
 
     // Display alertdialog with scoring play details so user can confirm they are correct
     private void confirmPlay() {
-        String play = scoringPlay.substring(4, scoringPlay.length());
-        String team = (scoringPlay.substring(0,4).equals("home") ?
-                textViewHomeTeam.getText().toString() : textViewAwayTeam.getText().toString());
-        String minutesPlayed = editTextMinutesPlayed.getText().toString();
-        String description = editTextDescription.getText().toString();
+        if (!scoringPlay.equals("")) {
+            String play = scoringPlay.substring(4, scoringPlay.length());
+            String team = (scoringPlay.substring(0, 4).equals("home") ?
+                    textViewHomeTeam.getText().toString() : textViewAwayTeam.getText().toString());
+            String minutesPlayed = editTextMinutesPlayed.getText().toString();
+            String description = editTextDescription.getText().toString();
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-        // set title
-        alertDialogBuilder.setTitle("Confirm Scoring Play");
+            // set title
+            alertDialogBuilder.setTitle("Confirm Scoring Play");
 
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Team: " + team + "\nPlay: " + play + "\nMinutes Played: " +
-                        minutesPlayed + "\nDescription: " + description + "\n\nIs this correct?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        final ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                        final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-                        if (!(activeNetwork != null && activeNetwork.isConnected())) {
-                            // if yes is clicked and user is offline, redirect them to network settings
-                            dialog.cancel();
-                            displayToast("Please connect to either wifi or a mobile network then try again");
-                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                        } else {
-                            // if yes clicked change score and call sendtack asynctask to update database
-                            changeScore();
-                            new SendTask().execute(MainActivity.SERVER_ADDRESS + "update_game.php");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Team: " + team + "\nPlay: " + play + "\nMinutes Played: " +
+                            minutesPlayed + "\nDescription: " + description + "\n\nIs this correct?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            final ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                            final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+                            if (!(activeNetwork != null && activeNetwork.isConnected())) {
+                                // if yes is clicked and user is offline, redirect them to network settings
+                                dialog.cancel();
+                                displayToast("Please connect to either wifi or a mobile network then try again");
+                                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                            } else {
+                                // if yes clicked change score and call sendtack asynctask to update database
+                                changeScore();
+                                new SendTask().execute(MainActivity.SERVER_ADDRESS + "update_game.php");
+                            }
                         }
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close the dialog box and
-                        // display toast telling user game wasn't updated.
-                        dialog.cancel();
-                        displayToast("Game Not Updated");
-                    }
-                });
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // if this button is clicked, just close the dialog box and
+                            // display toast telling user game wasn't updated.
+                            dialog.cancel();
+                            displayToast("Game Not Updated");
+                        }
+                    });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
 
-        // show it
-        alertDialog.show();
+            // show it
+            alertDialog.show();
+        } else {
+            displayToast("Please select a scoring play");
+        }
     }
 
     // Displays toast with message
@@ -268,50 +272,44 @@ public class ScoreGameFragment extends Fragment {
             String minutesPlayed = editTextMinutesPlayed.getText().toString();
             String description = editTextDescription.getText().toString();
 
-            // make sure the fields are not empty
-            if (!scoringPlay.equals("")) {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost((String) objects[0]);
-                try {
-                    // Store game info in List and add to httppost
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                    nameValuePairs.add(new BasicNameValuePair("gameID", gameID));
-                    nameValuePairs.add(new BasicNameValuePair("scoringPlay", scoringPlay));
-                    nameValuePairs.add(new BasicNameValuePair("minutesPlayed", minutesPlayed));
-                    nameValuePairs.add(new BasicNameValuePair("description", description));
-                    nameValuePairs.add(new BasicNameValuePair("homeScore", String.valueOf(ScoreGameFragmentActivity.homeScore)));
-                    nameValuePairs.add(new BasicNameValuePair("awayScore", String.valueOf(ScoreGameFragmentActivity.awayScore)));
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost((String) objects[0]);
+            try {
+                // Store game info in List and add to httppost
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("gameID", gameID));
+                nameValuePairs.add(new BasicNameValuePair("scoringPlay", scoringPlay));
+                nameValuePairs.add(new BasicNameValuePair("minutesPlayed", minutesPlayed));
+                nameValuePairs.add(new BasicNameValuePair("description", description));
+                nameValuePairs.add(new BasicNameValuePair("homeScore", String.valueOf(ScoreGameFragmentActivity.homeScore)));
+                nameValuePairs.add(new BasicNameValuePair("awayScore", String.valueOf(ScoreGameFragmentActivity.awayScore)));
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-                    // Execute httppost and retrieve response
-                    HttpResponse response = httpclient.execute(httppost);
+                // Execute httppost and retrieve response
+                HttpResponse response = httpclient.execute(httppost);
 
-                    // Convert response to String
-                    HttpEntity entity = response.getEntity();
-                    InputStream is = entity.getContent();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    is.close();
-                    System.out.println(sb);
-                    // Get message informing of successfulness of update
-                    message = sb.substring(2, sb.length()).trim();
-                    if (message.equals("success")) {
-                        // If update successful, add scoringplay to ScoreGameFragmentActivity.scoringPlays.
-                        // Having a locally stored arraylist saves calling server each time scoring plays displayed.
-                        ScoreGameFragmentActivity.scoringPlays.add(new ScoringPlay(
-                                Integer.parseInt(sb.substring(0, 2)), scoringPlay, description));
-                    }
-                } catch (Exception e) {
-                    // If there's a problem clientside, display error
-                    System.out.println("ScoreGameFragment: " + e.toString());
+                // Convert response to String
+                HttpEntity entity = response.getEntity();
+                InputStream is = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
                 }
-            }
-            else {
-                displayToast("Please select a scoring play");
+                is.close();
+                System.out.println(sb);
+                // Get message informing of successfulness of update
+                message = sb.substring(2, sb.length()).trim();
+                if (message.equals("success")) {
+                    // If update successful, add scoringplay to ScoreGameFragmentActivity.scoringPlays.
+                    // Having a locally stored arraylist saves calling server each time scoring plays displayed.
+                    ScoreGameFragmentActivity.scoringPlays.add(new ScoringPlay(
+                            Integer.parseInt(sb.substring(0, 2)), scoringPlay, description));
+                }
+            } catch (Exception e) {
+                // If there's a problem clientside, display error
+                System.out.println("ScoreGameFragment: " + e.toString());
             }
 
             return null;
