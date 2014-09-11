@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewHomeTeam"
-            android:textSize="13sp"
+            android:textSize="@dimen/scoring_play_button_text_size"
             android:gravity="center"/>
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewAwayTeam"
-            android:textSize="13sp"
+            android:textSize="@dimen/scoring_play_button_text_size"
             android:gravity="center"/>
 
     </TableRow>
@@ -54,19 +54,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Try"
             android:id="@+id/buttonHomeTry"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Try"
             android:id="@+id/buttonAwayTry"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
@@ -75,19 +75,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Conversion"
             android:id="@+id/buttonHomeConversion"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Conversion"
             android:id="@+id/buttonAwayConversion"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
@@ -96,19 +96,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Penalty"
             android:id="@+id/buttonHomePenalty"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Penalty"
             android:id="@+id/buttonAwayPenalty"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
@@ -117,19 +117,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Drop Goal"
             android:id="@+id/buttonHomeDropGoal"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Drop Goal"
             android:id="@+id/buttonAwayDropGoal"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
@@ -138,19 +138,19 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Half Time"
             android:id="@+id/buttonHalfTime"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/scoring_play_button_height"
             android:layout_weight="1"
             android:text="Full Time"
             android:id="@+id/buttonFullTime"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow

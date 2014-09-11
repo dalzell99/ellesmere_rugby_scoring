@@ -54,17 +54,15 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Try"
             android:id="@+id/buttonHomeTry"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Try"
             android:id="@+id/buttonAwayTry"/>
     </TableRow>
@@ -75,17 +73,15 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Conversion"
             android:id="@+id/buttonHomeConversion"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Conversion"
             android:id="@+id/buttonAwayConversion"/>
     </TableRow>
@@ -96,17 +92,15 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Penalty"
             android:id="@+id/buttonHomePenalty"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Penalty"
             android:id="@+id/buttonAwayPenalty"/>
     </TableRow>
@@ -117,17 +111,15 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Drop Goal"
             android:id="@+id/buttonHomeDropGoal"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Drop Goal"
             android:id="@+id/buttonAwayDropGoal"/>
     </TableRow>
@@ -138,17 +130,15 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Half Time"
             android:id="@+id/buttonHalfTime"/>
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="@dimen/scoring_play_button_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"
             android:text="Full Time"
             android:id="@+id/buttonFullTime"/>
     </TableRow>
@@ -208,7 +198,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/scoring_play_button_text_size"/>
+            android:textSize="@dimen/spinner_text_size"/>
     </TableRow>
 
 </TableLayout>

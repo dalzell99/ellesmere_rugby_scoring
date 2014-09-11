@@ -47,7 +47,7 @@ public class GameSelectionActivity extends Activity {
     Spinner spinnerAwayTeam;
     Button buttonSelectGame;
     String gameID;
-    String message;
+    String message = "";
 
     List<String> divisions = Arrays.asList("Div 1", "Div 2", "Div 3", "Colts", "U18", "U16", "U14.5", "U13", "U11.5");
     List<String> teamsDiv1 = Arrays.asList("Waihora", "Lincoln", "Raikaia", "Methven", "Southbridge", "Burn/Duns/Irwell", "Glenmark", "Darfield",
@@ -168,7 +168,7 @@ public class GameSelectionActivity extends Activity {
         protected void onPostExecute(Object o) {
             // Display a toast based on whether game was added to database. If success isn't returned
             // then there is a problem with the php script
-            if (!message.equals("success")) {
+            if (message.equals("Doesn't Exist")) {
                 // If game doesn't exist in database, then give the option to create it
                 String division = spinnerDivision.getSelectedItem().toString();
                 String homeTeam = spinnerHomeTeam.getSelectedItem().toString();
@@ -198,6 +198,7 @@ public class GameSelectionActivity extends Activity {
                             // if this button is clicked, just close the dialog box
                             // and do nothing
                             dialog.cancel();
+                            message = "";
                         }
                     })
                     .create()
