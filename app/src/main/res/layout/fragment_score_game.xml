@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewHomeTeam"
-            android:textSize="20sp"
+            android:textSize="@dimen/scoring_play_button_text_size"
             android:gravity="center"/>
 
         <TextView
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/textViewAwayTeam"
-            android:textSize="20sp"
+            android:textSize="@dimen/scoring_play_button_text_size"
             android:gravity="center"/>
 
     </TableRow>
@@ -162,14 +162,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewMinutesPlayed"
             android:text="@string/minutes_played_textview"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
         <EditText
             android:id="@+id/editTextMinutesPlayed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="@dimen/scoring_play_button_text_size"/>
 
     </TableRow>
 
@@ -182,7 +183,7 @@
             android:layout_height="wrap_content"
             android:text="Description"
             android:id="@+id/textViewDescription"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
@@ -195,7 +196,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="textMultiLine"
-            android:id="@+id/editTextDescription"/>
+            android:id="@+id/editTextDescription"
+            android:textSize="@dimen/scoring_play_button_text_size"/>
     </TableRow>
 
     <TableRow
