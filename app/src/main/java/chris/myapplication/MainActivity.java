@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
     Button buttonScoreGame;
     Button buttonDraw;
 
-    public static String SERVER_ADDRESS = "http://www.possumshire.com/android_test/";
+    public static String SERVER_ADDRESS = "http://www.possumpam.com/rugby-scoring-app-scripts/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
