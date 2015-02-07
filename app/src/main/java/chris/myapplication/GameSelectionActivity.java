@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,7 +38,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class GameSelectionActivity extends Activity {
+public class GameSelectionActivity extends ActionBarActivity {
 
     Context mContext;
     ArrayAdapter<String> divisionAdapter;

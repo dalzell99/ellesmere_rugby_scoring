@@ -31,13 +31,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutionException;
 
-public class DrawFragmentActivity extends ActionBarActivity implements ActionBar.TabListener {
+public class DrawFragmentActivity extends ActionBarActivity {
 
     /**
      * Sets the date for the start of the season. This is used for displaying
      * games by week.
      */
-    public static final Calendar startFirstWeek = new GregorianCalendar(2014, 8, 18);
+    public static final Calendar startFirstWeek = new GregorianCalendar(2015, 2, 7);
 
     /**
      * Contains all the game objects to be used in this activity
@@ -60,6 +60,12 @@ public class DrawFragmentActivity extends ActionBarActivity implements ActionBar
     ViewPager mViewPager;
 
     /**
+     * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
+     * above, but is designed to give continuous feedback to the user when scrolling.
+     */
+    private SlidingTabLayout mSlidingTabLayout;
+
+    /**
      * Create the activity. Sets up an {@link android.app.ActionBar} with tabs, and then configures the
      * {@link ViewPager} contained inside R.layout.activity_draw_fragment.
      *
@@ -74,13 +80,6 @@ public class DrawFragmentActivity extends ActionBarActivity implements ActionBar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_fragment);
-
-        // Hide actionbar to make activity full screen
-        final ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
 
         try {
             final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -109,16 +108,9 @@ public class DrawFragmentActivity extends ActionBarActivity implements ActionBar
 
     /**
      * The games must be retrieved before the fragments can be created.
-     * This hopefully prevents this.
+     * This hopefully prevents this bug.
      */
     private void finishCreate() {
-        // Set up the action bar. The navigation mode is set to NAVIGATION_MODE_TABS, which will
-        // cause the ActionBar to render a set of tabs. Note that these tabs are *not* rendered
-        // by the ViewPager; additional logic is lower in this file to synchronize the ViewPager
-        // state with the tab state. (See mViewPager.setOnPageChangeListener() and onTabSelected().)
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
         mDrawPagerAdapter = new DrawPagerAdapter(getSupportFragmentManager());
@@ -127,25 +119,10 @@ public class DrawFragmentActivity extends ActionBarActivity implements ActionBar
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDrawPagerAdapter);
 
-        // When swiping between different sections, select the corresponding tab. We can also use
-        // ActionBar.Tab#select() to do this if we have a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mDrawPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter. Also
-            // specify this Activity object, which implements the TabListener interface, as the
-            // callback (listener) for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mDrawPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
+        // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
+        // it's PagerAdapter set.
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setViewPager(mViewPager);
     }
 
     // Retrieves all the games from the database
@@ -218,33 +195,5 @@ public class DrawFragmentActivity extends ActionBarActivity implements ActionBar
             // data has been retrieved.
             finishCreate();
         }
-    }
-
-    /**
-     * Update {@link ViewPager} after a tab has been selected in the ActionBar.
-     *
-     * @param tab Tab that was selected.
-     * @param fragmentTransaction A {@link android.app.FragmentTransaction} for queuing fragment operations to
-     *                            execute once this method returns. This FragmentTransaction does
-     *                            not support being added to the back stack.
-     */
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, tell the ViewPager to switch to the corresponding page.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    /**
-     * Unused. Required for {@link android.app.ActionBar.TabListener}.
-     */
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    /**
-     * Unused. Required for {@link android.app.ActionBar.TabListener}.
-     */
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 }

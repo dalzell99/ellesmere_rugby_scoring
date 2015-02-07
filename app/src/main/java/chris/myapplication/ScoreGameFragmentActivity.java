@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -27,7 +28,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreGameFragmentActivity extends FragmentActivity implements ActionBar.TabListener {
+public class ScoreGameFragmentActivity extends ActionBarActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,6 +44,12 @@ public class ScoreGameFragmentActivity extends FragmentActivity implements Actio
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
+    /**
+     * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
+     * above, but is designed to give continuous feedback to the user when scrolling.
+     */
+    private SlidingTabLayout mSlidingTabLayout;
 
     /**
      * Variable to store gameID and team names for use by fragments
@@ -148,17 +155,6 @@ public class ScoreGameFragmentActivity extends FragmentActivity implements Actio
 
     // Finishes onCreate. This prevents fragments being created before game info retrieved.
     public void finishCreate() {
-        // Set up the action bar. The navigation mode is set to NAVIGATION_MODE_TABS, which will
-        // cause the ActionBar to render a set of tabs. Note that these tabs are *not* rendered
-        // by the ViewPager; additional logic is lower in this file to synchronize the ViewPager
-        // state with the tab state. (See mViewPager.setOnPageChangeListener() and onTabSelected().)
-        final ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
         mScoreGamePagerAdapter = new ScoreGamePagerAdapter(getSupportFragmentManager());
@@ -167,61 +163,9 @@ public class ScoreGameFragmentActivity extends FragmentActivity implements Actio
         mViewPager = (ViewPager) findViewById(R.id.pagerScoreGame);
         mViewPager.setAdapter(mScoreGamePagerAdapter);
 
-        // When swiping between different sections, select the corresponding tab. We can also use
-        // ActionBar.Tab#select() to do this if we have a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(final int position) {
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (position == 1) {
-                            mScoreGamePagerAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }, 300);
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mScoreGamePagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by the adapter. Also
-            // specify this Activity object, which implements the TabListener interface, as the
-            // callback (listener) for when this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mScoreGamePagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
-    }
-
-    /**
-     * Update {@link ViewPager} after a tab has been selected in the ActionBar.
-     *
-     * @param tab Tab that was selected.
-     * @param fragmentTransaction A {@link android.app.FragmentTransaction} for queuing fragment operations to
-     *                            execute once this method returns. This FragmentTransaction does
-     *                            not support being added to the back stack.
-     */
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, tell the ViewPager to switch to the corresponding page.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    /**
-     * Unused. Required for {@link android.app.ActionBar.TabListener}.
-     */
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-    }
-
-    /**
-     * Unused. Required for {@link android.app.ActionBar.TabListener}.
-     */
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
+        // it's PagerAdapter set.
+        mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabsScoreGame);
+        mSlidingTabLayout.setViewPager(mViewPager);
     }
 }
