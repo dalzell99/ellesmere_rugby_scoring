@@ -280,6 +280,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
 
+            if (mScrollState == 0) {
+                ScoreGameFragmentActivity.mScoreGamePagerAdapter.notifyDataSetChanged();
+            }
+
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrollStateChanged(state);
             }

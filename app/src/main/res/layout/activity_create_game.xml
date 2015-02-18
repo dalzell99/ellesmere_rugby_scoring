@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewDateString"
             android:visibility="gone"
-            android:text="20150001"/>
+            android:text="20150301"/>
 
     </TableRow>
 

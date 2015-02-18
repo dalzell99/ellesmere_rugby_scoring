@@ -73,13 +73,6 @@ public class GameSelectionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
 
-        // Make the activity full screen by removing actionbar
-        final ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
         // Store reference to activity context
         mContext = this;
 

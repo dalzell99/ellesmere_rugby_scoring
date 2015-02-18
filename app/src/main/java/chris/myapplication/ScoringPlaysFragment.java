@@ -40,6 +40,12 @@ public class ScoringPlaysFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_game_info, container, false);
+
+        TextView textViewHomeGameInfo = (TextView) rootView.findViewById(R.id.textViewHomeGameInfo);
+        textViewHomeGameInfo.setText(ScoreGameFragmentActivity.homeTeamName);
+        TextView textViewAwayGameInfo = (TextView) rootView.findViewById(R.id.textViewAwayGameInfo);
+        textViewAwayGameInfo.setText(ScoreGameFragmentActivity.awayTeamName);
+
         tableLayoutScoringPlays = (LinearLayout) rootView.findViewById(R.id.linearLayoutScoringPlays);
 
         homeScore = 0;
@@ -52,37 +58,48 @@ public class ScoringPlaysFragment extends Fragment {
                     tableLayoutScoringPlays, false);
             // Get scoring play then split it into team and play
             String scoringPlay = s.getPlay();
-            String team = scoringPlay.substring(0, 4);
-            String play = scoringPlay.substring(4, scoringPlay.length());
-            if (team.equals("home")) {
-                TextView textViewHomePlay = (TextView) linearLayout.findViewById(R.id.textViewHomePlay);
-                textViewHomePlay.setText(play.equals("DropGoal") ? "Drop Goal" : play);
+            if (scoringPlay.contains("half")) {
+                TextView textViewMinutes = (TextView) linearLayout.findViewById(R.id.textViewMinutes);
+                textViewMinutes.setText(String.valueOf(homeScore) + "-" + String.valueOf(awayScore) +
+                        "\nHalf Time");
+            } else if (scoringPlay.contains("full")) {
+                TextView textViewMinutes = (TextView) linearLayout.findViewById(R.id.textViewMinutes);
+                textViewMinutes.setText(String.valueOf(homeScore) + "-" + String.valueOf(awayScore) +
+                        "\nFull Time");
             } else {
-                TextView textViewAwayPlay = (TextView) linearLayout.findViewById(R.id.textViewAwayPlay);
-                textViewAwayPlay.setText(play.equals("DropGoal") ? "Drop Goal" : play);
-            }
-
-            // Change score to score at this point in the game then display it along with the
-            // minutes played when this scoring play happened
-            changeScore(team, play);
-            TextView textViewMinutes = (TextView) linearLayout.findViewById(R.id.textViewMinutes);
-            textViewMinutes.setText(String.valueOf(homeScore) + "-" + String.valueOf(awayScore) +
-                    " (" + String.valueOf(s.getMinutes()) + "')");
-            TextView textViewDescription = (TextView) linearLayout.findViewById(R.id.textViewPlayDescription);
-            if (s.getDescription().equals("")) {
-                textViewDescription.setVisibility(View.GONE);
-            } else {
-                if (team.equals("away")) {
-                    textViewDescription.setGravity(Gravity.RIGHT);
+                String team = scoringPlay.substring(0, 4);
+                String play = scoringPlay.substring(4, scoringPlay.length());
+                if (team.equals("home")) {
+                    TextView textViewHomePlay = (TextView) linearLayout.findViewById(R.id.textViewHomePlay);
+                    textViewHomePlay.setText(play.equals("DropGoal") ? "Drop Goal" : play);
+                } else {
+                    TextView textViewAwayPlay = (TextView) linearLayout.findViewById(R.id.textViewAwayPlay);
+                    textViewAwayPlay.setText(play.equals("DropGoal") ? "Drop Goal" : play);
                 }
-                textViewDescription.setText(s.getDescription());
+
+                // Change score to score at this point in the game then display it along with the
+                // minutes played when this scoring play happened
+                changeScore(team, play);
+                TextView textViewMinutes = (TextView) linearLayout.findViewById(R.id.textViewMinutes);
+                textViewMinutes.setText(String.valueOf(homeScore) + "-" + String.valueOf(awayScore) +
+                        " (" + String.valueOf(s.getMinutes()) + "')");
+                TextView textViewDescription = (TextView) linearLayout.findViewById(R.id.textViewPlayDescription);
+                if (s.getDescription().equals("")) {
+                    textViewDescription.setVisibility(View.GONE);
+                } else {
+                    if (team.equals("away")) {
+                        textViewDescription.setGravity(Gravity.RIGHT);
+                    }
+                    textViewDescription.setText(s.getDescription());
+                }
+
+
+                // Set id so scoring play can be identified when clicked
+                linearLayout.setId(id);
+                id += 1;
+
+                linearLayout.setOnClickListener(scoringPlayClickListener);
             }
-
-            // Set id so scoring play can be identified when clicked
-            linearLayout.setId(id);
-            id += 1;
-
-            linearLayout.setOnClickListener(scoringPlayClickListener);
 
             // Add this linear layout to main linear layout
             tableLayoutScoringPlays.addView(linearLayout);

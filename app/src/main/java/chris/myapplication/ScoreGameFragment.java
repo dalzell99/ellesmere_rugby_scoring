@@ -163,7 +163,16 @@ public class ScoreGameFragment extends Fragment {
     // Display alertdialog with scoring play details so user can confirm they are correct
     private void confirmPlay() {
         if (!scoringPlay.equals("")) {
-            String play = scoringPlay.substring(4, scoringPlay.length());
+            // If scoring play is half time or full time, set play to the whole string. If not,
+            // then remove home/away from the string to get the scoring play.
+            String play;
+            if (scoringPlay.contains("half")) {
+                play = "Half Time";
+            } else if (scoringPlay.contains("full")) {
+                play = "Full Time";
+            } else {
+                play = scoringPlay.substring(4, scoringPlay.length());
+            }
             String team = (scoringPlay.substring(0, 4).equals("home") ?
                     textViewHomeTeam.getText().toString() : textViewAwayTeam.getText().toString());
             String minutesPlayed = editTextMinutesPlayed.getText().toString();

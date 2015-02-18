@@ -85,7 +85,7 @@ public class ScoreGameFragmentActivity extends ActionBarActivity {
         new GetGameInfo().execute(MainActivity.SERVER_ADDRESS + "get_game.php");
     }
 
-    // Retrieves gme info from server based on gameID
+    // Retrieves game info from server based on gameID
     private class GetGameInfo extends AsyncTask {
 
         @Override
