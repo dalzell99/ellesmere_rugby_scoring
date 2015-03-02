@@ -32,6 +32,16 @@ public class DrawPagerAdapter extends FragmentPagerAdapter {
     }
 
     /**
+     * Causes all fragments to be recreated with notifyDataSetChanged() called which
+     * in turn updates the game info.
+     *
+     */
+    @Override
+    public int getItemPosition(Object o) {
+        return POSITION_NONE;
+    }
+
+    /**
      * Get number of pages the {@link android.support.v4.view.ViewPager} should render.
      *
      * @return Number of fragments to be rendered as pages.

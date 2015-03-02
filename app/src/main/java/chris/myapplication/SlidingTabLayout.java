@@ -233,7 +233,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
     }
 
-    private void scrollToTab(int tabIndex, int positionOffset) {
+    public void scrollToTab(int tabIndex, int positionOffset) {
         final int tabStripChildCount = mTabStrip.getChildCount();
         if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
             return;
@@ -280,7 +280,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
 
-            if (mScrollState == 0) {
+            // Only call pager adapter method from ScoreGameFragmentActivity
+            if (mScrollState == 0 && getContext().getClass() == ScoreGameFragmentActivity.class) {
                 ScoreGameFragmentActivity.mScoreGamePagerAdapter.notifyDataSetChanged();
             }
 

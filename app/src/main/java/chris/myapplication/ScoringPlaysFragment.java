@@ -150,12 +150,14 @@ public class ScoringPlaysFragment extends Fragment {
         // Get clicked rows id
         int viewID = view.getId();
         if (getView() != null) {
-            // Get main LinearLayout containing all the scoring plays
+            // Get main LinearLayout containing title tablerow and scrollview with plays inside it
             View v = ((ViewGroup) getView()).getChildAt(0);
+            // Get scrollview
+            View v1 = ((ViewGroup) v).getChildAt(1);
             // Get specific scoring play LinearLayout to be deleted
-            View v1 = ((ViewGroup) v).getChildAt(0);
+            View v2 = ((ViewGroup) v1).getChildAt(0);
             // Remove it from main LinearLayout
-            ((ViewGroup) v1).removeViewAt(viewID);
+            ((ViewGroup) v2).removeViewAt(viewID);
             // Remove it from local arraylist
             ScoreGameFragmentActivity.scoringPlays.remove(viewID);
             // Recreate fragments to get correct score.

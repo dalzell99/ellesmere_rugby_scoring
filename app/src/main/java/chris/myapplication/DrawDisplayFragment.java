@@ -3,13 +3,16 @@ package chris.myapplication;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,6 +43,8 @@ public class DrawDisplayFragment extends Fragment {
     // Stores current week number
     int weekNumber;
 
+    SwipeRefreshLayout swipeLayout;
+
     // Sets week number to static weekNumber stored in DrawPagerAdapter
     public DrawDisplayFragment() {
         weekNumber = DrawPagerAdapter.weekNumber;
@@ -47,11 +52,20 @@ public class DrawDisplayFragment extends Fragment {
 
     // Returns view to be displayed in viewpager
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_game_display, container, false);
+
+        swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateGames();
+            }
+        });
+
         // Get all games being played in this week
         ArrayList<Game> games = getThisWeeksGames(weekNumber);
 
-        View rootView = inflater.inflate(R.layout.fragment_game_display, container, false);
         TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.tableLayoutScores);
         // Check if there are any games to display for this week.
         if (!games.isEmpty()) {
@@ -162,5 +176,92 @@ public class DrawDisplayFragment extends Fragment {
             return String.valueOf(c);
         else
             return "0" + String.valueOf(c);
+    }
+
+    // Displays a toast with passed in message
+    private void displayToast(String message) {
+        Toast.makeText(this.getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private void updateGames() {
+        new GetAllGames().execute(MainActivity.SERVER_ADDRESS + "get_all_games.php");
+    }
+
+    // Retrieves all the games from the database
+    private class GetAllGames extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            ArrayList<Game> games = new ArrayList<Game>();
+            String result = "";
+
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httppost = new HttpPost((String) objects[0]);
+
+                // Return all games between start and end dates
+                HttpResponse response = httpclient.execute(httppost);
+
+                // Retrieve json data to be processed
+                HttpEntity entity = response.getEntity();
+                InputStream is = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                is.close();
+                result=sb.toString();
+            } catch (Exception e) {
+                Log.e("log_tag", "Error retrieving data " + e.toString());
+            }
+
+            try{
+                // Check if any games were retrieved. This prevents most JSONExceptions.
+                if (!result.equals("")) {
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        ArrayList<ScoringPlay> scoringPlays = new ArrayList<ScoringPlay>();
+                        JSONObject json = jsonArray.getJSONObject(i);
+                        // Retrieve String containing JSONArray of JSONArrays each containing
+                        // minutesPlayed, play and description
+                        String jsonString = json.getString("scoringPlays");
+                        // Get JSONArray from String
+                        JSONArray jsonArray1 = new JSONArray(jsonString);
+                        for (int j = 0; j < jsonArray1.length(); j++) {
+                            // Get JSONArray from JSONArray
+                            JSONArray object = jsonArray1.getJSONArray(j);
+                            // Get minutesPlayed, scoring play and description from inner JSONArray
+                            // and create a ScoringPlay object with them then add it to ArrayList of scoringPlays
+                            // for this game
+                            scoringPlays.add(new ScoringPlay(object.getInt(0), object.getString(1), object.getString(2)));
+                        }
+                        // Create Game from retrieved info and add it to games ArrayList
+                        games.add(new Game(json.getLong("GameID"), json.getString("homeTeamName"), json.getInt("homeTeamScore"),
+                                json.getString("awayTeamName"), json.getInt("awayTeamScore"), json.getString("location"),
+                                json.getInt("minutesPlayed"), json.getString("time"), scoringPlays));
+                    }
+                }
+            }catch(JSONException e){
+                Log.e("log_tag", "Error parsing data " + e.toString());
+            }
+
+            // Return ArrayList with every game stored in database
+            DrawFragmentActivity.games = games;
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            // Tell pager adapter to recreate fragments with new data
+            DrawFragmentActivity.mDrawPagerAdapter.notifyDataSetChanged();
+            //DrawFragmentActivity.mSlidingTabLayout.scrollToTab(1, 7);
+            // Display toast informing user that all games have been updated
+            displayToast("Games Updated");
+            // Stop the refresh animation
+            swipeLayout.setRefreshing(false);
+        }
     }
 }

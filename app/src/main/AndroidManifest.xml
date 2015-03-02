@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".ScoreGameFragmentActivity"
-            android:label="@string/title_activity_score_game_fragment" >
+            android:label="@string/title_activity_score_game_fragment">
         </activity>
     </application>
 

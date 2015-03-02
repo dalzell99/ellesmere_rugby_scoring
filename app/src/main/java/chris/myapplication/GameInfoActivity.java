@@ -28,13 +28,6 @@ public class GameInfoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_info);
 
-        // Hide actionbar to make activity full screen
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
         linearLayoutScoringPlays = (LinearLayout) findViewById(R.id.linearLayoutScoringPlaysActivity);
         textViewGameInfoHomeTeam = (TextView) findViewById(R.id.textViewGameInfoHomeTeam);
         textViewGameInfoAwayTeam = (TextView) findViewById(R.id.textViewGameInfoAwayTeam);

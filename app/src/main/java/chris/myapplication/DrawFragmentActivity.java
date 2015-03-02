@@ -37,7 +37,7 @@ public class DrawFragmentActivity extends ActionBarActivity {
      * Sets the date for the start of the season. This is used for displaying
      * games by week.
      */
-    public static final Calendar startFirstWeek = new GregorianCalendar(2015, 2, 7);
+    public static final Calendar startFirstWeek = new GregorianCalendar(2015, 3, 2);
 
     /**
      * Contains all the game objects to be used in this activity
@@ -52,7 +52,7 @@ public class DrawFragmentActivity extends ActionBarActivity {
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    DrawPagerAdapter mDrawPagerAdapter;
+    public static DrawPagerAdapter mDrawPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -63,7 +63,7 @@ public class DrawFragmentActivity extends ActionBarActivity {
      * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
      * above, but is designed to give continuous feedback to the user when scrolling.
      */
-    private SlidingTabLayout mSlidingTabLayout;
+    public static SlidingTabLayout mSlidingTabLayout;
 
     /**
      * Create the activity. Sets up an {@link android.app.ActionBar} with tabs, and then configures the
@@ -108,7 +108,6 @@ public class DrawFragmentActivity extends ActionBarActivity {
 
     /**
      * The games must be retrieved before the fragments can be created.
-     * This hopefully prevents this bug.
      */
     private void finishCreate() {
         // Create the adapter that will return a fragment for each of the three primary sections
