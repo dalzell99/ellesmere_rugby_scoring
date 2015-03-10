@@ -21,6 +21,7 @@
     <string name="title_activity_create_game">CreateGameActivity</string>
     <string name="title_activity_game_info">GameInfoActivity</string>
     <string name="title_activity_score_game_fragment">ScoreGameFragmentActivity</string>
+    <string name="title_activity_score_game_end">ScoreGameFragmentActivity</string>
     <string name="title_activity_score_game_pager_adaptor">ScoreGamePagerAdaptor</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

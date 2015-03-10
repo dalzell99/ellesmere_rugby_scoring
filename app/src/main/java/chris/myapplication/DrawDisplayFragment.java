@@ -1,9 +1,13 @@
 package chris.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -59,7 +63,20 @@ public class DrawDisplayFragment extends Fragment {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateGames();
+                // Check if user is connected to internet
+                final ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+                if (!(activeNetwork != null && activeNetwork.isConnected())) {
+                    // if user is offline, redirect them to network settings
+                    displayToast("Please connect to either wifi or a mobile network then try again");
+                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                } else {
+                    // Update games if connected to internet
+                    updateGames();
+                }
+
+                // Stop the refresh animation
+                swipeLayout.setRefreshing(false);
             }
         });
 
@@ -77,6 +94,22 @@ public class DrawDisplayFragment extends Fragment {
                 TextView textViewDivTitle = (TextView) divTitle.findViewById(R.id.textViewDivTitle);
                 textViewDivTitle.setText(CreateGameActivity.divisions.get(i));
                 tableLayout.addView(divTitle);
+
+                final TableLayout tableLayoutScores = new TableLayout(this.getActivity());
+                tableLayoutScores.setVisibility(View.GONE);
+
+                textViewDivTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (tableLayoutScores.getVisibility() == View.GONE) {
+                            tableLayoutScores.setVisibility(View.VISIBLE);
+                        } else {
+                            tableLayoutScores.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+
                 for (Game g : games) {
                     // Check if game is in division being displayed
                     if (String.valueOf(g.getGameID()).endsWith(pad(i))) {
@@ -124,9 +157,10 @@ public class DrawDisplayFragment extends Fragment {
                             }
                         });
                         // Add tablerow to tablelayout
-                        tableLayout.addView(tableRow);
+                        tableLayoutScores.addView(tableRow);
                     }
                 }
+                tableLayout.addView(tableLayoutScores);
             }
         } else {
             // Display textview stating "No game to display" if games arraylist empty
@@ -257,11 +291,8 @@ public class DrawDisplayFragment extends Fragment {
         protected void onPostExecute(Object o) {
             // Tell pager adapter to recreate fragments with new data
             DrawFragmentActivity.mDrawPagerAdapter.notifyDataSetChanged();
-            //DrawFragmentActivity.mSlidingTabLayout.scrollToTab(1, 7);
             // Display toast informing user that all games have been updated
             displayToast("Games Updated");
-            // Stop the refresh animation
-            swipeLayout.setRefreshing(false);
         }
     }
 }

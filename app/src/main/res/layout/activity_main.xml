@@ -26,6 +26,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/buttonScoreGameEnd"
+        android:text="Input Score at End of Game"
+        android:layout_weight="1"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/buttonDraw"
         android:text="Draw/Results"
         android:layout_weight="1"/>

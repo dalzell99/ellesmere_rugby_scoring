@@ -35,6 +35,10 @@
             android:name=".ScoreGameFragmentActivity"
             android:label="@string/title_activity_score_game_fragment">
         </activity>
+        <activity
+            android:name=".GameSelectionEndActivity"
+            android:label="@string/title_activity_score_game_end">
+        </activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ public class MainActivity extends ActionBarActivity {
 
     Button buttonAddGames;
     Button buttonScoreGame;
+    Button buttonScoreGameEnd;
     Button buttonDraw;
 
     public static String SERVER_ADDRESS = "http://www.possumpam.com/rugby-scoring-app-scripts/";
@@ -25,16 +26,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
-        if (!(activeNetwork != null && activeNetwork.isConnected())) {
-            // If user is offline, redirect them to wifi settings
-            displayToast("Please connect to either wifi or a mobile network");
-            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-        }
-
         buttonAddGames  = (Button) findViewById(R.id.buttonAddGames);
         buttonScoreGame = (Button) findViewById(R.id.buttonScoreGame);
+        buttonScoreGameEnd = (Button) findViewById(R.id.buttonScoreGameEnd);
         buttonDraw      = (Button) findViewById(R.id.buttonDraw);
 
         buttonAddGames.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +42,13 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, DrawFragmentActivity.class));
+            }
+        });
+
+        buttonScoreGameEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, GameSelectionEndActivity.class));
             }
         });
 

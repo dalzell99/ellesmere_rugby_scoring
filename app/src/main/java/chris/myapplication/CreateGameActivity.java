@@ -307,7 +307,7 @@ public class CreateGameActivity extends ActionBarActivity {
                 displayToast("Game Created");
                 message = "";
             } else {
-                displayToast("Game wasn't Created. Please contact app creator.");
+                displayToast("Game already exists.");
                 message = "";
             }
         }

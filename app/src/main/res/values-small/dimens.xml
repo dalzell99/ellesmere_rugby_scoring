@@ -5,4 +5,5 @@
     <dimen name="spinner_item_height">40dp</dimen>
     <dimen name="scoring_play_button_height">25dp</dimen>
     <dimen name="scoring_play_button_text_size">13sp</dimen>
+    <dimen name="div_title_text_size">27sp</dimen>
 </resources>
